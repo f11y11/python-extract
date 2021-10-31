@@ -1,5 +1,5 @@
 from typing import Dict, Iterable, Optional, Tuple
-from forbiddenfruit import curse
+from forbiddenfruit import curse, reverse
 
 
 def extract(__items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
@@ -28,13 +28,13 @@ def extract(__items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
 
         return items
 
-def dict_extract(_, __items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
+def dict_extract(_, __items:Iterable, __none=True) -> Tuple:
     if not __none:
-        items = tuple(value for key, value in __from.items() if key in __items)
+        items = tuple(value for key, value in _.items() if key in __items)
     else:
         items = tuple()
         for item in __items:
-            items = (*items, __from.get(item))
+            items = (*items, _.get(item))
     return items
 
 def init():
@@ -43,3 +43,11 @@ def init():
     AttributeError will be raised if dict.extract() is used and is not initialized
     """
     curse(dict, 'extract', dict_extract)
+    assert 'extract' in dir(dict)
+
+def term():
+    """
+    Removes extract() from default dict class
+    """
+    reverse(dict, 'extract')
+    assert 'extract' not in dir(dict)
