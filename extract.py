@@ -2,6 +2,8 @@ from typing import Dict, Iterable, Optional, Tuple
 from forbiddenfruit import curse, reverse
 
 
+__all__ = {'extract', 'init', 'term'}
+
 def extract(__items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
     """
     Extract multiple items from the given dict in the given order
