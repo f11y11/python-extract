@@ -11,10 +11,9 @@ def extract(__items:Iterable, __from:Dict, __none=True):
 
     ## Returns:
     A tuple containing the extracted items
-    >>> Example:
-    mydict = {'key1': 'value1', 'key2': 'value2'}
-    extract(('key1', 'key2', 'key3'), mydict)
-    >   ('value1', 'value2')
+    >>> mydict = {'key1': 'value1', 'key2': 'value2'}
+    >>> extract(('key1', 'key2', 'key3'), mydict)
+    ('value1', 'value2')
 
     
 
