@@ -1,6 +1,9 @@
-from typing import Dict, Iterable
+from typing import Dict, Iterable, Optional, Tuple
+from forbiddenfruit import curse
 
-def extract(__items:Iterable, __from:Dict, __none=True):
+__initialized = False
+
+def extract(__items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
     """
     Extract multiple items from the given dict in the given order
 
@@ -13,11 +16,9 @@ def extract(__items:Iterable, __from:Dict, __none=True):
     A tuple containing the extracted items
     >>> mydict = {'key1': 'value1', 'key2': 'value2'}
     >>> extract(('key1', 'key2', 'key3'), mydict)
-    ('value1', 'value2')
-
-    
-
+    ... ('value1', 'value2')
     """
+
     if isinstance(__from, Dict):
         if not __none:
             items = tuple(value for key, value in __from.items() if key in __items)
@@ -27,3 +28,26 @@ def extract(__items:Iterable, __from:Dict, __none=True):
                 items = (*items, __from.get(item))
 
         return items
+
+def dict_extract(_, __items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
+    if not __none:
+        items = tuple(value for key, value in __from.items() if key in __items)
+    else:
+        items = tuple()
+        for item in __items:
+            items = (*items, __from.get(item))
+    return items
+
+def init():
+    """
+    Adds extract() to default dict class
+    AttributeError will be raised if dict.extract() is used and is not initialized
+    """
+    curse(dict, 'extract', dict_extract)
+    global __initialized
+    __initialized = True
+
+init()
+
+mydict = {'key1': 'value1', 'key2': 'value2'}
+print(mydict.extract(('key1', 'key2', 'key3'), mydict))
