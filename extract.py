@@ -1,7 +1,6 @@
 from typing import Dict, Iterable, Optional, Tuple
 from forbiddenfruit import curse
 
-__initialized = False
 
 def extract(__items:Iterable, __from:Optional[Dict], __none=True) -> Tuple:
     """
@@ -44,5 +43,3 @@ def init():
     AttributeError will be raised if dict.extract() is used and is not initialized
     """
     curse(dict, 'extract', dict_extract)
-    global __initialized
-    __initialized = True
