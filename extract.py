@@ -46,8 +46,3 @@ def init():
     curse(dict, 'extract', dict_extract)
     global __initialized
     __initialized = True
-
-init()
-
-mydict = {'key1': 'value1', 'key2': 'value2'}
-print(mydict.extract(('key1', 'key2', 'key3'), mydict))
